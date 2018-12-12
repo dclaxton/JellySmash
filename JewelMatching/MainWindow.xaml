@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JewelMatching"
         mc:Ignorable="d"
-        Title="MainWindow" Height="768" Width="1024">
+        Title="MainWindow" Height="700" Width="625">
     <Grid>
-        <Canvas Name="world" HorizontalAlignment="Left" Height="727" VerticalAlignment="Top" Width="1016" Focusable="True" MouseDown="world_MouseDown"/>
+        <Canvas Name="world" HorizontalAlignment="Left" Height="727" VerticalAlignment="Top" Width="617" Focusable="True" MouseDown="world_MouseDown" Margin="0,3,0,0"/>
 
     </Grid>
 </Window>

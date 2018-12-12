@@ -55,6 +55,24 @@ namespace JewelMatching
 
             return false;
         }
+        
+
+        /// <summary>
+        /// this is the method that scans for runs of 3,4, or 5 and updates the score accordingly.
+        /// if the run is found the jellies in a run are replaced with an "EMPTY" type of jelly.
+        /// </summary>
+        public void Update()
+        {
+            CheckForRuns();
+        }
+
+        /// <summary>
+        ///  the method that contains the algorithm for checking the runs
+        /// </summary>
+        private void CheckForRuns()
+        {
+            
+        }
 
         /// <summary>
         /// Gets the name of a image based on the JellyCode.

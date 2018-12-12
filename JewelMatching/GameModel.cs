@@ -18,29 +18,14 @@ namespace JewelMatching
         {
             if (IsFirstClick)
             {
-                FirstX = (int)x + ImageSelector.IMAGE_WIDTH / 2;
-                FirstY = (int)y + ImageSelector.IMAGE_HEIGHT / 2;
+                FirstX = (int)x / ImageSelector.IMAGE_WIDTH;
+                FirstY = (int)y / ImageSelector.IMAGE_HEIGHT;
                 IsFirstClick = false;
             }
             else
             {
-                foreach (var tile in Board.GetTiles())
-                {
-                     if( FirstX < tile.X + ImageSelector.IMAGE_WIDTH && FirstX > tile.X
-                         && FirstY < tile.Y + ImageSelector.IMAGE_HEIGHT && FirstY > tile.Y)
-                     {
-                         foreach(var t in Board.GetTiles())
-                         {
-                             if ((int)x < t.X + ImageSelector.IMAGE_WIDTH && (int)x > t.X
-                             && (int)y < t.Y + ImageSelector.IMAGE_HEIGHT && (int)y > t.Y)
-                             {
-                                 MessageBox.Show("found both.");
-                                 Board.Swap();
-                                 break;
-                             }
-                         }
-                     }
-                }
+                Board.Swap(FirstX, FirstY, (int)x / ImageSelector.IMAGE_WIDTH, (int)y / ImageSelector.IMAGE_HEIGHT);
+                IsFirstClick = true;
             }
         }
 
