@@ -71,7 +71,28 @@ namespace JewelMatching
         /// </summary>
         private void CheckForRuns()
         {
-            
+
+            for(int i = 0; i < Board.Length; i++)
+            {
+                for(int j = 0; j < Board.Length; j++)
+                {
+                    //horizontal run of 3
+                    if(Board[i,j-1] == Board[i,j] && Board[i,j] == Board[i,j+1])
+                    {
+                        //horizontal run of 4
+                        if(Board[i,j-2] == Board[i,j] || Board[i,j+2] == Board[i,j])
+                        {
+                            //horizontal run of 5
+                            if(Board[i,j-3] == Board[i,j] || Board[i,j+3] == Board[i,j])
+                            {
+
+                            }
+                        }
+                    }
+
+                    //horizontal run of 3
+                }
+            }
         }
 
         /// <summary>
