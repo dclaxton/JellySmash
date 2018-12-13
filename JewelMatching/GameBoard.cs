@@ -7,6 +7,7 @@ namespace JewelMatching
     {
         private int height;
         private int width;
+
         private readonly Random rand;
 
         /// <summary>
@@ -17,6 +18,8 @@ namespace JewelMatching
         public GameBoard(int width, int height)
         {
             this.width = width;
+            this.Score = 0;
+            this.hasSwapped = true;
             this.height = height;
             this.rand = new Random();
             this.Board = new JellyCode[width, height];
@@ -24,7 +27,7 @@ namespace JewelMatching
             {
                 for (int j = 0; j < height; j++)
                 {
-                    this.Board[i, j] = SelectJelly();
+                    this.Board[i, j] = JellyCode.EMPTY;
                 }
             }
         }
@@ -64,33 +67,141 @@ namespace JewelMatching
         public void Update()
         {
             CheckForRuns();
+            DoGravity();
+            Randomize();
         }
 
         /// <summary>
-        ///  the method that contains the algorithm for checking the runs
+        /// function that swaps the jelly to do a gravity-like swap
+        /// </summary>
+        private void DoGravity()
+        {
+            int k = 0;
+            while (k < 120) // 120 because our grid is 12x10 and we're making sure it does all the squares >:)
+            {               // probably not the best or most efficient way to do this, but it works for now.
+                for (int i = 0; i < width; i++)
+                {
+                    for (int j = 0; j < height - 1; j++)
+                    {
+                        if (Board[i, j] != JellyCode.EMPTY && Board[i, j + 1] == JellyCode.EMPTY)
+                        {
+                            // Board[i,j+1] = Board[i, j];
+                            // Board[i, j] = JellyCode.EMPTY;
+                            Swap(i, j, i, j + 1);
+                        }
+                    }
+                }
+                k++;
+            }
+        }
+
+        /// <summary>
+        ///  the method that contains the algorithm(s) for checking the runs
         /// </summary>
         private void CheckForRuns()
         {
 
-            for(int i = 0; i < Board.Length; i++)
+            //--------------------------HORIZONTALLY---------------------------
+
+            // check for 5 horizontally
+            for (int i = 0; i < width - 4; i++)
             {
-                for(int j = 0; j < Board.Length; j++)
+                for (int j = 0; j < height; j++)
                 {
-                    //horizontal run of 3
-                    if(Board[i,j-1] == Board[i,j] && Board[i,j] == Board[i,j+1])
+                    if (Board[i, j] == Board[i + 1, j] && Board[i,j] == Board[i+2,j]
+                        && Board[i,j] == Board[i+3,j] && Board[i,j] == Board[i+4,j])
                     {
-                        //horizontal run of 4
-                        if(Board[i,j-2] == Board[i,j] || Board[i,j+2] == Board[i,j])
-                        {
-                            //horizontal run of 5
-                            if(Board[i,j-3] == Board[i,j] || Board[i,j+3] == Board[i,j])
-                            {
-
-                            }
-                        }
+                        Board[i, j] = JellyCode.EMPTY;
+                        Board[i + 1, j] = JellyCode.EMPTY;
+                        Board[i + 2, j] = JellyCode.EMPTY;
+                        Board[i + 3, j] = JellyCode.EMPTY;
+                        Board[i + 4, j] = JellyCode.EMPTY;
+                        Score += 200;
                     }
+                }
+            }
 
-                    //horizontal run of 3
+            // horizontal 4
+            for (int i = 0; i < width - 3; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (Board[i, j] == Board[i + 1, j] && Board[i, j] == Board[i + 2, j]
+                        && Board[i, j] == Board[i + 3, j])
+                    {
+                        Board[i, j] = JellyCode.EMPTY;
+                        Board[i + 1, j] = JellyCode.EMPTY;
+                        Board[i + 2, j] = JellyCode.EMPTY;
+                        Board[i + 3, j] = JellyCode.EMPTY;
+                        Score += 100;
+                    }
+                }
+            }
+
+            // horizontal 3
+            for (int i = 0; i < width - 2; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    if (Board[i, j] == Board[i + 1, j] && Board[i, j] == Board[i + 2, j])
+                    {
+                        Board[i, j] = JellyCode.EMPTY;
+                        Board[i + 1, j] = JellyCode.EMPTY;
+                        Board[i + 2, j] = JellyCode.EMPTY;
+                        Score += 50;
+                    }
+                }
+            }
+
+            //--------------------VERTICAL-------------------------
+
+            // vert 5
+            for (int i = 0; i < height - 4; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (Board[j,i] == Board[j,i +1] && Board[j,i] == Board[j,i+2] 
+                        && Board[j,i] == Board[j,i+3] && Board[j,i] == Board[j,i+4])
+                    {
+                        Board[j, i] = JellyCode.EMPTY;
+                        Board[j, i + 1] = JellyCode.EMPTY;
+                        Board[j, i + 2] = JellyCode.EMPTY;
+                        Board[j, i + 3] = JellyCode.EMPTY;
+                        Board[j, i + 4] = JellyCode.EMPTY;
+                        Score += 200;
+                    }
+                }
+            }
+
+            // vert 4
+            for (int i = 0; i < height -3; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (Board[j, i] == Board[j, i + 1] && Board[j, i] == Board[j, i + 2]
+                        && Board[j, i] == Board[j, i + 3])
+                    {
+                        Board[j, i] = JellyCode.EMPTY;
+                        Board[j, i + 1] = JellyCode.EMPTY;
+                        Board[j, i + 2] = JellyCode.EMPTY;
+                        Board[j, i + 3] = JellyCode.EMPTY;
+                        Score += 100;
+                    }
+                }
+            }
+
+            // vert 3
+            for (int i = 0; i < height - 2; i++)
+            {
+                for (int j = 0; j < width; j++)
+                {
+                    if (Board[j, i] == Board[j, i + 1] && Board[j, i] == Board[j, i + 2])
+                    {
+                        Board[j, i] = JellyCode.EMPTY;
+                        Board[j, i + 1] = JellyCode.EMPTY;
+                        Board[j, i + 2] = JellyCode.EMPTY;
+                        Score += 50;
+                    }
                 }
             }
         }
@@ -122,11 +233,9 @@ namespace JewelMatching
         /// </summary>
         /// <param name="x">a number from 0 to 5</param>
         /// <returns>A jelly code for the passed number.</returns>
-        private JellyCode SelectJelly()
+        private JellyCode SelectJelly(int x)
         {
-            int r = Randomize();
-
-            switch (r)
+            switch (x)
             {
                 case 0: return JellyCode.BLACK;
                 case 1: return JellyCode.BLUE;
@@ -163,13 +272,23 @@ namespace JewelMatching
         /// Random number generator to assist with selecting random jellies
         /// </summary>
         /// <returns>ints 1-6 representing a jelly</returns>
-        public int Randomize()
+        public void Randomize()
         {
-            int jellytoMake = rand.Next(6);
-
-            return jellytoMake;
+            for(int i = 0; i < width; i++)
+            {
+                for(int j = 0; j < height; j++)
+                {
+                    if(Board[i,j] == JellyCode.EMPTY)
+                    {
+                        int jellytoMake = rand.Next(6);
+                        Board[i, j] = SelectJelly(jellytoMake);
+                    }
+                }
+            }
         }
 
         public JellyCode[,] Board { get; private set; }
+        public int Score { get; private set; }
+        public bool hasSwapped { get; private set; }
     }
 }

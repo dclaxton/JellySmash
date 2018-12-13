@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="700" Width="625">
     <Grid>
-        <Canvas Name="world" HorizontalAlignment="Left" Height="727" VerticalAlignment="Top" Width="617" Focusable="True" MouseDown="world_MouseDown" Margin="0,3,0,0"/>
+        <Canvas Name="world" HorizontalAlignment="Left" Height="666" VerticalAlignment="Top" Width="617" Focusable="True" MouseDown="world_MouseDown" Margin="-6,6,0,-3"/>
+        <TextBlock x:Name="Score" HorizontalAlignment="Left" Margin="10,581,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="78" Width="255" RenderTransformOrigin="1.16,-0.128" FontSize="36"/>
 
     </Grid>
 </Window>

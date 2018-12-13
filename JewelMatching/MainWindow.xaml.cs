@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace JewelMatching
 {
@@ -27,9 +16,8 @@ namespace JewelMatching
         {
             InitializeComponent();
             world.Focus();
-            
             this.model = new GameModel(12, 10);
-            this.view = new GameView(world, model);
+            this.view = new GameView(world, model, Score);
             this.view.Update();
         }
 

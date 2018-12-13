@@ -26,6 +26,7 @@ namespace JewelMatching
             {
                 Board.Swap(FirstX, FirstY, (int)x / ImageSelector.IMAGE_WIDTH, (int)y / ImageSelector.IMAGE_HEIGHT);
                 IsFirstClick = true;
+                Board.Update();
             }
         }
 
